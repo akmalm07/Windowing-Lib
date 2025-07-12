@@ -5,6 +5,9 @@
 #include "window.h"
 #include "timer.h"	
 
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 
 
@@ -29,16 +32,17 @@ namespace windowing {
 		_mouseCurrentY = _height / 2;
 	}
 
-	Window::Window(float windowWidth, float windowHeight, const std::string& name, bool createWindow)
+	Window::Window(float windowWidth, float windowHeight, const std::string& name, bool enableFPSTag, bool createWindow)
 	{
-		init(windowWidth, windowHeight, name, createWindow);
+		init(windowWidth, windowHeight, name, enableFPSTag, createWindow);
 
 		set_escape_button(Keys::Esc, Action::Press);
 		//set_movement_callbacks();
 	}
 
-	void Window::init(float windowWidth, float windowHeight, const std::string& name, bool createWindow)
+	void Window::init(float windowWidth, float windowHeight, const std::string& name, bool enableFPSTag, bool createWindow)
 	{
+		_enableFpsTag = enableFPSTag;
 
 		_name = name;
 
@@ -162,7 +166,19 @@ namespace windowing {
 		reset_delta_time();
 		swap_buffers();
 		poll_events();
-		update_fps_tag();
+
+		if (_enableFpsTag)
+		{
+			update_fps_tag();
+		}
+		
+		int displayW, displayH;
+		glfwGetFramebufferSize(_mainWindow, &displayW, &displayH);
+		glViewport(0, 0, displayW, displayH);
+
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 	}
 
 	void Window::reset_delta_time()
@@ -217,6 +233,8 @@ namespace windowing {
 		if (g_numOfWindows == 0)
 		{
 			glfwMakeContextCurrent(_mainWindow);
+			glfwSwapInterval(1);
+
 			glewExperimental = GL_TRUE;
 
 			if (glewInit() != GLEW_OK)
@@ -224,6 +242,18 @@ namespace windowing {
 				std::cerr << "Error initializing GLEW! \n";
 				return false;
 			}
+
+			// Setup Dear ImGui context
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+			// Setup ImGui 
+			ImGui::StyleColorsDark();
+
+			// Setup Platform/Renderer backends
+			ImGui_ImplGlfw_InitForOpenGL(_mainWindow, true);
+			ImGui_ImplOpenGL3_Init("#version 460");
 			
 			
 			//glEnable(GL_CULL_FACE); //DEBUG
@@ -233,14 +263,13 @@ namespace windowing {
 			//glEnable(GL_DEPTH_TEST);
 			//glDepthFunc(GL_LESS);
 			
-
 			glEnable(GL_CULL_FACE);
 			glCullFace(GL_BACK);
 			glFrontFace(GL_CCW);
 
 			glEnable(GL_DEPTH_TEST);
 
-			glViewport(0, 0, static_cast<int>(_width), static_cast<int>(_height));
+			//glViewport(0, 0, static_cast<int>(_width), static_cast<int>(_height));
 
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}
@@ -525,10 +554,10 @@ namespace windowing {
 	void Window::CreateCallbacks()
 	{
 		//glfwSetWindowUserPointer(_mainWindow, this); 
-		glfwSetKeyCallback(_mainWindow, m_HandleKeys);
+		/*glfwSetKeyCallback(_mainWindow, m_HandleKeys);
 		glfwSetCursorPosCallback(_mainWindow, m_HandleMouseCursor);
 		glfwSetMouseButtonCallback(_mainWindow, m_HandleMouseButtons);
-		glfwSetScrollCallback(_mainWindow, m_HandleMouseScroll);
+		glfwSetScrollCallback(_mainWindow, m_HandleMouseScroll);*/
 
 
 	}

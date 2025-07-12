@@ -36,9 +36,10 @@ project "windowing-lib"
 
     links
     {
-        "glfw3",
+        "glfw3_mt",
         "opengl32",
-        "glew32s"
+        "glew32s",
+        "kernel32"
     }
 
     defines { "GLEW_STATIC" }

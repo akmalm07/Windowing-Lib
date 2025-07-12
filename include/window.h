@@ -28,7 +28,7 @@ namespace windowing
 	public:
 		Window();
 
-		Window(float windowWidth, float windowHeight, const std::string& name, bool createWindowT);
+		Window(float windowWidth, float windowHeight, const std::string& name, bool enableFPSTag, bool createWindowT);
 
 		Window(Window&& other) noexcept;
 
@@ -128,7 +128,7 @@ namespace windowing
 		std::string _name = "";
 
 		bool _updated = false; // develop this to know if the window has been updated or not, used in the main loop to check for updates.
-
+		bool _enableFpsTag = false; 
 		std::array<bool, 1024> _keys{}; 
 
 
@@ -144,7 +144,7 @@ namespace windowing
 
 	protected:
 
-		void init(float windowWidth, float windowHeight, const std::string& name, bool createWindow);
+		void init(float windowWidth, float windowHeight, const std::string& name, bool enableFPSTag, bool createWindow);
 
 		void HandleKeys(int key, int code, int action, int mode);
 		void HandleMouseCursor(double posX, double posY);

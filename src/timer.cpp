@@ -131,3 +131,119 @@ namespace windowing
 
 } // namespace windowing
 
+
+#include "windowing.h"
+
+int main()
+{
+	windowing::Window window(1280, 720, "ImGui Test", false, true);
+
+	// Main loop
+	while (!window.get_should_close()) 
+	{
+		window.update();		
+
+		// ImGui window
+		ImGui::Begin("Hello, world!");
+		ImGui::Text("This is an ImGui + OpenGL window.");
+		ImGui::End();
+
+		// Rendering
+		windowing::clear_color();
+		windowing::render();
+
+	}
+
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwDestroyWindow(window.get_window());
+	glfwTerminate();
+
+	return 0;
+}
+
+
+/*
+#include "windowing.h"
+
+int main()
+{
+	// Initialize GLFW
+	if (!glfwInit())
+		return -1;
+
+	// Setup OpenGL version (3.3 Core)
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// Create window
+	GLFWwindow* window = glfwCreateWindow(1280, 720, "ImGui Test", nullptr, nullptr);
+	if (!window) {
+		glfwTerminate();
+		return -1;
+	}
+	glfwMakeContextCurrent(window);
+
+	// Initialize GLEW (must be after context is current)
+	if (glewInit() != GLEW_OK) {
+		return -1;
+	}
+
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+	// Setup ImGui style
+	ImGui::StyleColorsDark();
+
+	// Setup Platform/Renderer backends
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 430");
+
+	// Main loop
+	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+
+		// Start ImGui frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+
+		// ImGui window
+		ImGui::Begin("Hello, world!");
+		ImGui::Text("This is an ImGui + OpenGL window.");
+		if (ImGui::Button("Click Me"))
+		{
+		}
+		ImGui::End();
+
+
+		// Rendering
+		ImGui::Render();
+		int display_w, display_h;
+		glfwGetFramebufferSize(window, &display_w, &display_h);
+		glViewport(0, 0, display_w, display_h);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		glfwSwapBuffers(window);
+	}
+
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwDestroyWindow(window);
+	glfwTerminate();
+
+	return 0;
+}
+*/
