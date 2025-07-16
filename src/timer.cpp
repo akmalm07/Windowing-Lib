@@ -130,40 +130,40 @@ namespace windowing
 
 
 } // namespace windowing
-
-
-#include "windowing.h"
-
-int main()
-{
-	windowing::Window window(1280, 720, "ImGui Test", false, true);
-
-	// Main loop
-	while (!window.get_should_close()) 
-	{
-		window.update();		
-
-		// ImGui window
-		ImGui::Begin("Hello, world!");
-		ImGui::Text("This is an ImGui + OpenGL window.");
-		ImGui::End();
-
-		// Rendering
-		windowing::clear_color();
-		windowing::render();
-
-	}
-
-	// Cleanup
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
-
-	glfwDestroyWindow(window.get_window());
-	glfwTerminate();
-
-	return 0;
-}
+//
+//
+//#include "windowing.h"
+//
+//int main()
+//{
+//	windowing::Window window(1280, 720, "ImGui Test", false, true);
+//
+//	// Main loop
+//	while (!window.get_should_close()) 
+//	{
+//		window.update();		
+//
+//		// ImGui window
+//		ImGui::Begin("Hello, world!");
+//		ImGui::Text("This is an ImGui + OpenGL window.");
+//		ImGui::End();
+//
+//		// Rendering
+//		windowing::clear_color();
+//		windowing::render();
+//
+//	}
+//
+//	// Cleanup
+//	ImGui_ImplOpenGL3_Shutdown();
+//	ImGui_ImplGlfw_Shutdown();
+//	ImGui::DestroyContext();
+//
+//	glfwDestroyWindow(window.get_window());
+//	glfwTerminate();
+//
+//	return 0;
+//}
 
 
 /*

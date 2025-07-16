@@ -24,8 +24,8 @@ project "windowing-lib"
     includedirs
     {
         "include",
-        "vendor/GLFW/include",
-        "vendor/GLEW/include",
+        "include/IMGUI",
+        "include/Windowing",
     }
 
     libdirs
