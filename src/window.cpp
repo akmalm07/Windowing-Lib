@@ -21,13 +21,6 @@ namespace windowing {
 	{
 		_name = "Untitled Window";
 
-		_mainWindow = nullptr;
-
-		_width = 800.0f;
-		_height = 800.0f;
-
-		_aspectRatio = 1.0f;
-
 		_mouseCurrentX = _width / 2;
 		_mouseCurrentY = _height / 2;
 	}
@@ -520,7 +513,6 @@ namespace windowing {
 
 	void Window::clear_window()
 	{
-
 		if (!_mainWindow)
 		{
 			_mainWindow = nullptr;
@@ -531,7 +523,11 @@ namespace windowing {
 			g_numOfWindows--;
 		}
 
-		//GraphicsHandlerAPI::DeleteWindowBase(_mainWindow);
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+
+		glfwTerminate();
 	}
 
 	void Window::poll_events() const

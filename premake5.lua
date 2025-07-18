@@ -19,6 +19,7 @@ project "windowing-lib"
     {
         "src/**.cpp",
         "include/**.h",
+        "include/**.inl",
     }
 
     includedirs

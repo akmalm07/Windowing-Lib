@@ -132,40 +132,33 @@ namespace windowing
 } // namespace windowing
 //
 //
-//#include "windowing.h"
-//
-//int main()
-//{
-//	windowing::Window window(1280, 720, "ImGui Test", false, true);
-//
-//	// Main loop
-//	while (!window.get_should_close()) 
-//	{
-//		window.update();		
-//
-//		// ImGui window
-//		ImGui::Begin("Hello, world!");
-//		ImGui::Text("This is an ImGui + OpenGL window.");
-//		ImGui::End();
-//
-//		// Rendering
-//		windowing::clear_color();
-//		windowing::render();
-//
-//	}
-//
-//	// Cleanup
-//	ImGui_ImplOpenGL3_Shutdown();
-//	ImGui_ImplGlfw_Shutdown();
-//	ImGui::DestroyContext();
-//
-//	glfwDestroyWindow(window.get_window());
-//	glfwTerminate();
-//
-//	return 0;
-//}
 
+#include "windowing.h"
 
+int main()
+{
+	windowing::Window window(1280, 720, "ImGui Test", false, true);
+
+	// Main loop
+	while (!window.get_should_close()) 
+	{
+		window.update();		
+
+		// ImGui window
+		ImGui::Begin("Hello, world!");
+		ImGui::Text("This is an ImGui + OpenGL window.");
+		ImGui::End();
+
+		// Rendering
+		windowing::clear_color();
+		windowing::render();
+
+	}
+
+	return 0;
+}
+
+//*/
 /*
 #include "windowing.h"
 
@@ -199,7 +192,7 @@ int main()
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
-	// Setup ImGui style
+	 Setup ImGui style
 	ImGui::StyleColorsDark();
 
 	// Setup Platform/Renderer backends
@@ -210,12 +203,12 @@ int main()
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
-		// Start ImGui frame
+		 Start ImGui frame
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		// ImGui window
+		 ImGui window
 		ImGui::Begin("Hello, world!");
 		ImGui::Text("This is an ImGui + OpenGL window.");
 		if (ImGui::Button("Click Me"))
@@ -246,4 +239,4 @@ int main()
 
 	return 0;
 }
-*/
+//*/

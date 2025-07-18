@@ -116,11 +116,11 @@ namespace windowing
 
 		static uint32_t g_numOfWindows;
 
-		float _aspectRatio;
+		float _aspectRatio = 1.0f;
 
 		GLFWwindow* _mainWindow = nullptr;
 
-		float _width = 0.0f, _height = 0.0f;
+		float _width = 800.0f, _height = 800.0f;
 		int _bufferWidth = 0, _bufferHeight = 0;
 
 		windowing::Timer _timer; 
