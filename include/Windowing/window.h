@@ -34,6 +34,8 @@ namespace windowing
 
 		Window& operator=(Window&& other) noexcept;
 
+		void init(float windowWidth, float windowHeight, const std::string& name, bool enableFPSTag, bool createWindow);
+
 		bool create_window(const std::string& name, bool disableCursor);
 
 		void set_disable_cursor(bool disableCursor);
@@ -143,8 +145,6 @@ namespace windowing
 		double _mouseCurrentY = 0.0;
 
 	protected:
-
-		void init(float windowWidth, float windowHeight, const std::string& name, bool enableFPSTag, bool createWindow);
 
 		void HandleKeys(int key, int code, int action, int mode);
 		void HandleMouseCursor(double posX, double posY);
